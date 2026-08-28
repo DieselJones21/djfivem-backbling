@@ -46,9 +46,10 @@ local vanillaModels = {
 local katanaTokens = { 'katana', 'sword', 'ninjato', 'wakizashi', 'longsword' }
 local longTokens = {
     'weapon_bat', 'heartbat', 'angelbat', 'devilbat', 'crayonbat', 'bananabat',
-    'pickaxe', 'broom', 'rake', 'golf', 'poolcue', 'pool_cue', 'sledge',
+    'broom', 'golf', 'poolcue', 'pool_cue', 'sledge',
     'staff', 'spear', 'lance', 'battleaxe', 'battle_axe',
 }
+local axeTokens = { 'pickaxe', 'slurpaxe', 'rake', 'hatchet', 'axe' }
 local smallTokens = { 'fork', 'knife', 'dagger', 'switch', 'bottle', 'flashlight', 'shiv', 'bayonet', 'karambit', 'butterfly' }
 
 local function containsToken(name, tokens)
@@ -80,6 +81,9 @@ function Backbling.GuessPreset(name)
     name = Backbling.Normalize(name) or ''
     if containsToken(name, katanaTokens) then
         return 'katana'
+    end
+    if containsToken(name, axeTokens) then
+        return 'axe'
     end
     if containsToken(name, longTokens) then
         return 'long'

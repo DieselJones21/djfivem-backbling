@@ -66,23 +66,24 @@ Config.Editor = {
 Config.SlotOrder = { 'primary', 'secondary', 'tertiary' }
 
 Config.Slots = {
-    -- Largest / first long weapon, right of spine, hanging like a backbling.
+    -- Diagonal back-bling, slightly right of the spine, sitting on the hoodie.
+    -- Y = -90 points the model "head" up the spine instead of hanging handle-up.
     primary = {
         bone = 24818,
-        pos = vec3(0.175, -0.155, 0.015),
-        rot = vec3(0.0, 90.0, 180.0),
+        pos = vec3(0.10, -0.172, -0.04),
+        rot = vec3(32.0, -90.0, 8.0),
     },
-    -- Second weapon, mirrored to the left so two bats don't occupy the same space.
+    -- Mirrored to the left so a second melee crosses the other way.
     secondary = {
         bone = 24818,
-        pos = vec3(-0.145, -0.155, 0.020),
-        rot = vec3(0.0, 90.0, 0.0),
+        pos = vec3(-0.12, -0.172, -0.05),
+        rot = vec3(-32.0, -90.0, -8.0),
     },
-    -- Third weapon, slightly lower and more diagonal (knives / shorter melee).
+    -- Lower / tighter for a third item.
     tertiary = {
         bone = 24818,
-        pos = vec3(0.015, -0.175, -0.115),
-        rot = vec3(6.0, 78.0, 180.0),
+        pos = vec3(0.01, -0.182, -0.12),
+        rot = vec3(18.0, -84.0, 6.0),
     },
 }
 
@@ -96,26 +97,33 @@ Config.Presets = {
     long = {
         slots = { 'primary', 'secondary', 'tertiary' },
         priority = 10,
-        extraPos = vec3(0.0, 0.0, 0.0),
+        extraPos = vec3(0.0, 0.0, -0.12),
         extraRot = vec3(0.0, 0.0, 0.0),
     },
     katana = {
         slots = { 'primary', 'secondary' },
         priority = 12,
-        extraPos = vec3(-0.010, -0.010, 0.070),
-        extraRot = vec3(12.0, -18.0, 8.0),
+        extraPos = vec3(-0.010, -0.010, 0.040),
+        extraRot = vec3(8.0, 12.0, 6.0),
     },
     medium = {
         slots = { 'secondary', 'primary', 'tertiary' },
         priority = 20,
-        extraPos = vec3(0.0, 0.0, 0.035),
+        extraPos = vec3(0.0, 0.0, -0.04),
         extraRot = vec3(0.0, 0.0, 0.0),
     },
     small = {
         slots = { 'tertiary', 'secondary', 'primary' },
         priority = 30,
-        extraPos = vec3(0.0, 0.010, -0.020),
-        extraRot = vec3(0.0, 4.0, 0.0),
+        extraPos = vec3(0.0, 0.008, -0.02),
+        extraRot = vec3(-6.0, 4.0, 0.0),
+    },
+    -- Pickaxes / axes: extra 90° roll so the blade lies flat on the hoodie.
+    axe = {
+        slots = { 'primary', 'secondary' },
+        priority = 8,
+        extraPos = vec3(0.02, 0.006, -0.08),
+        extraRot = vec3(90.0, 6.0, 4.0),
     },
 }
 
@@ -134,7 +142,7 @@ Config.Blacklist = {
 --
 -- Fields (all optional except that the key is the item/weapon name):
 --   model    = ydr / prop name. If omitted, vanilla models and GetWeapontypeModel are used.
---   preset   = 'long' | 'medium' | 'small' | 'katana'
+    --   preset   = 'long' | 'medium' | 'small' | 'katana' | 'axe'
 --   priority = number (lower = more important slot)
 --   slot     = force 'primary' | 'secondary' | 'tertiary'
 --   bone, pos, rot = FULL override of the slot pose (use /backbling to get these)
@@ -172,19 +180,90 @@ Config.Weapons = {
     ['weapon_stunrod'] = { model = 'w_me_stunrod_01', preset = 'medium' },
 
     ----------------------------------------------------------------
-    -- Custom melee — model is the streamed ydr name (no extension)
-    -- Tune any that sit wrong with: /backbling weapon_heartbat
+    -- Custom melee — exact ydr + polished back-bling poses
+    -- Head/barrel toward the sky, ~30° diagonal, axes rolled flat on the hoodie.
+    -- Tune further with: /backbling weapon_heartbat
     ----------------------------------------------------------------
-    ['WEAPON_FORTNITEPICKAXE'] = { model = 'fortnitepickaxe', preset = 'long', priority = 8 },
-    ['WEAPON_HEARTBAT'] = { model = 'heartbat', preset = 'long', priority = 10 },
-    ['WEAPON_ANGELBAT'] = { model = 'angelbat', preset = 'long', priority = 10 },
-    ['WEAPON_DEVILBAT'] = { model = 'devilbat', preset = 'long', priority = 10 },
-    ['WEAPON_CRAYONBAT'] = { model = 'crayonbat', preset = 'long', priority = 10 },
-    ['WEAPON_BANANABAT'] = { model = 'bananabat', preset = 'long', priority = 10 },
-    ['WEAPON_BROOM'] = { model = 'broom', preset = 'long', priority = 11 },
-    ['WEAPON_RAKE'] = { model = 'rake', preset = 'long', priority = 11 },
-    ['WEAPON_SLURPAXE'] = { model = 'slurpaxe', preset = 'medium', priority = 16 },
-    ['WEAPON_FORK'] = { model = 'fork', preset = 'small', priority = 32 },
+    ['WEAPON_FORTNITEPICKAXE'] = {
+        model = 'fortnitepickaxe',
+        preset = 'axe',
+        priority = 8,
+        bone = 24818,
+        pos = vec3(0.11, -0.168, -0.155),
+        rot = vec3(92.0, -76.0, 18.0),
+    },
+    ['WEAPON_SLURPAXE'] = {
+        model = 'slurpaxe',
+        preset = 'axe',
+        priority = 9,
+        bone = 24818,
+        pos = vec3(0.08, -0.158, -0.015),
+        rot = vec3(90.0, 80.0, 24.0),
+    },
+    ['WEAPON_HEARTBAT'] = {
+        model = 'heartbat',
+        preset = 'long',
+        priority = 10,
+        bone = 24818,
+        pos = vec3(0.09, -0.172, -0.195),
+        rot = vec3(30.0, -90.0, 10.0),
+    },
+    ['WEAPON_BANANABAT'] = {
+        model = 'bananabat',
+        preset = 'long',
+        priority = 10,
+        bone = 24818,
+        pos = vec3(0.09, -0.172, -0.200),
+        rot = vec3(30.0, -90.0, 10.0),
+    },
+    ['WEAPON_CRAYONBAT'] = {
+        model = 'crayonbat',
+        preset = 'long',
+        priority = 10,
+        bone = 24818,
+        pos = vec3(0.10, -0.170, -0.205),
+        rot = vec3(28.0, -90.0, 8.0),
+    },
+    ['WEAPON_ANGELBAT'] = {
+        model = 'angelbat',
+        preset = 'long',
+        priority = 10,
+        bone = 24818,
+        pos = vec3(0.10, -0.178, 0.015),
+        rot = vec3(92.0, 82.0, 26.0),
+    },
+    ['WEAPON_DEVILBAT'] = {
+        model = 'devilbat',
+        preset = 'long',
+        priority = 10,
+        bone = 24817,
+        pos = vec3(0.08, -0.176, -0.040),
+        rot = vec3(88.0, -78.0, 16.0),
+    },
+    ['WEAPON_BROOM'] = {
+        model = 'broom',
+        preset = 'long',
+        priority = 11,
+        bone = 24818,
+        pos = vec3(0.08, -0.174, -0.170),
+        rot = vec3(28.0, -88.0, 10.0),
+    },
+    ['WEAPON_RAKE'] = {
+        model = 'rake',
+        preset = 'axe',
+        priority = 11,
+        bone = 24818,
+        pos = vec3(0.09, -0.174, -0.145),
+        rot = vec3(90.0, -80.0, 14.0),
+    },
+    ['WEAPON_FORK'] = {
+        model = 'fork',
+        preset = 'long',
+        priority = 12,
+        bone = 24818,
+        pos = vec3(0.09, -0.170, -0.130),
+        rot = vec3(30.0, -86.0, 12.0),
+    },
 }
 
 -- Bones the /backbling editor can cycle through.

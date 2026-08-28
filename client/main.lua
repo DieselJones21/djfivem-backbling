@@ -91,6 +91,16 @@ local function addVec(a, b)
     return vec3(a.x + b.x, a.y + b.y, a.z + b.z)
 end
 
+local function applySlotMirror(pos, rot, slotId)
+    if slotId == 'secondary' then
+        return vec3(-pos.x, pos.y, pos.z), vec3(-rot.x, rot.y, -rot.z)
+    end
+    if slotId == 'tertiary' then
+        return vec3(pos.x * 0.12, pos.y - 0.012, pos.z - 0.09), vec3(rot.x * 0.55, rot.y, rot.z)
+    end
+    return pos, rot
+end
+
 function Backbling.GetPose(name, slotId, presetName, ped)
     local override = Backbling.EditorOverrides[name]
     if override and override.pos and override.rot then
@@ -101,17 +111,20 @@ function Backbling.GetPose(name, slotId, presetName, ped)
     local slot = Config.Slots[slotId] or Config.Slots.primary
     local preset = Config.Presets[presetName or Backbling.GetPreset(name)] or Config.Presets.medium
 
-    -- Full overrides from config / the editor are exact poses. Do not add gender offsets again.
+    -- Full overrides from config / the editor are the solo (primary) pose.
+    -- Secondary / tertiary mirror so two weapons do not occupy the same space.
     if entry and entry.pos and entry.rot then
         local bone = entry.bone or slot.bone
-        local pos = entry.pos
-        local rot = entry.rot
-        if isFemale(ped) and entry.female then
-            if entry.female.pos then
-                pos = addVec(pos, entry.female.pos)
-            end
-            if entry.female.rot then
-                rot = addVec(rot, entry.female.rot)
+        local pos, rot = applySlotMirror(entry.pos, entry.rot, slotId)
+        if isFemale(ped) then
+            pos = addVec(pos, Config.FemaleOffset)
+            if entry.female then
+                if entry.female.pos then
+                    pos = addVec(pos, entry.female.pos)
+                end
+                if entry.female.rot then
+                    rot = addVec(rot, entry.female.rot)
+                end
             end
         end
         return bone, pos, rot

@@ -39,16 +39,16 @@ Vanilla GTA melee is already configured. These custom melee weapons are included
 
 | Item | Preset | Back slot preference |
 | --- | --- | --- |
-| `WEAPON_FORTNITEPICKAXE` | long | primary (highest priority) |
-| `WEAPON_HEARTBAT` | long | primary / secondary |
-| `WEAPON_ANGELBAT` | long | primary / secondary |
-| `WEAPON_DEVILBAT` | long | primary / secondary |
-| `WEAPON_CRAYONBAT` | long | primary / secondary |
-| `WEAPON_BANANABAT` | long | primary / secondary |
-| `WEAPON_BROOM` | long | primary / secondary |
-| `WEAPON_RAKE` | long | primary / secondary |
-| `WEAPON_SLURPAXE` | medium | secondary |
-| `WEAPON_FORK` | small | tertiary |
+| `WEAPON_FORTNITEPICKAXE` | axe | primary — head up, blade rolled flat, ~30° slant |
+| `WEAPON_HEARTBAT` | long | primary — heart toward the sky, diagonal |
+| `WEAPON_ANGELBAT` | long | primary — wings flat on the hoodie, diagonal |
+| `WEAPON_DEVILBAT` | long | primary — trident head up, rolled flat |
+| `WEAPON_CRAYONBAT` | long | primary — tip toward the sky, diagonal |
+| `WEAPON_BANANABAT` | long | primary — banana head toward the sky, diagonal |
+| `WEAPON_BROOM` | long | primary — bristle head up, staff slant |
+| `WEAPON_RAKE` | axe | primary — tines up, rolled flat |
+| `WEAPON_SLURPAXE` | axe | primary — head up, blade flat on the hoodie |
+| `WEAPON_FORK` | long | primary — prongs toward the sky, diagonal |
 
 The client spawns the streamed ydr from the weapon pack (`fork`, `heartbat`, `slurpaxe`, `fortnitepickaxe`, `rake`, `broom`, `bananabat`, `devilbat`, `crayonbat`, `angelbat`). `GetWeapontypeModel` is only a fallback.
 
