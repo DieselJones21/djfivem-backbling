@@ -41,7 +41,8 @@ local function loadModel(model)
 
     local looksValid = IsModelValid(hash) or IsModelInCdimage(hash)
     RequestModel(hash)
-    local timeout = GetGameTimer() + (looksValid and 4000 or 700)
+    -- Addon stream ydrs often fail IsModelInCdimage until requested; give them time.
+    local timeout = GetGameTimer() + (looksValid and 5000 or 2500)
     while not HasModelLoaded(hash) do
         if GetGameTimer() > timeout then
             Backbling.Debug('model timed out', model)
@@ -57,12 +58,12 @@ local function resolveModel(name, packedModel)
     local short = type(name) == 'string' and name:gsub('^weapon_', '') or name
     local weaponModel = GetWeapontypeModel(joaat(name))
     local candidates = {
-        weaponModel,
         packedModel,
         Backbling.GetModel(name),
+        short,
+        weaponModel,
         short and ('w_me_' .. short) or nil,
         name,
-        short,
     }
 
     local tried = {}

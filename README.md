@@ -50,7 +50,7 @@ Vanilla GTA melee is already configured. These custom melee weapons are included
 | `WEAPON_SLURPAXE` | medium | secondary |
 | `WEAPON_FORK` | small | tertiary |
 
-The client resolves each addon model from `weapons.meta` (`GetWeapontypeModel`) and also tries `w_me_<name>`. If a prop does not appear, set `model` in `config.lua` to the exact ydr name from the weapon pack.
+The client spawns the streamed ydr from the weapon pack (`fork`, `heartbat`, `slurpaxe`, `fortnitepickaxe`, `rake`, `broom`, `bananabat`, `devilbat`, `crayonbat`, `angelbat`). `GetWeapontypeModel` is only a fallback.
 
 Add more names the same way:
 
