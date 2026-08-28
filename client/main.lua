@@ -39,8 +39,9 @@ local function loadModel(model)
         return hash
     end
 
+    local looksValid = IsModelValid(hash) or IsModelInCdimage(hash)
     RequestModel(hash)
-    local timeout = GetGameTimer() + 5000
+    local timeout = GetGameTimer() + (looksValid and 4000 or 700)
     while not HasModelLoaded(hash) do
         if GetGameTimer() > timeout then
             Backbling.Debug('model timed out', model)
@@ -52,16 +53,29 @@ local function loadModel(model)
 end
 
 local function resolveModel(name, packedModel)
-    if packedModel and packedModel ~= '' and packedModel ~= 0 then
-        return packedModel
-    end
-    local configured = Backbling.GetModel(name)
-    if configured then
-        return configured
-    end
+    name = Backbling.Normalize(name) or name
+    local short = type(name) == 'string' and name:gsub('^weapon_', '') or name
     local weaponModel = GetWeapontypeModel(joaat(name))
-    if weaponModel and weaponModel ~= 0 then
-        return weaponModel
+    local candidates = {
+        weaponModel,
+        packedModel,
+        Backbling.GetModel(name),
+        short and ('w_me_' .. short) or nil,
+        name,
+        short,
+    }
+
+    local tried = {}
+    for i = 1, #candidates do
+        local model = candidates[i]
+        local hash = toHash(model)
+        if hash and hash ~= 0 and not tried[hash] then
+            tried[hash] = true
+            local loaded = loadModel(model)
+            if loaded then
+                return loaded
+            end
+        end
     end
 end
 
@@ -161,10 +175,9 @@ local function poseEquals(a, b)
 end
 
 local function attachWeapon(ped, weapon)
-    local model = resolveModel(weapon.name, weapon.model)
-    local hash = loadModel(model)
+    local hash = resolveModel(weapon.name, weapon.model)
     if not hash then
-        Backbling.Debug('could not load', weapon.name, model)
+        Backbling.Debug('could not load model for', weapon.name, weapon.model)
         return
     end
 

@@ -44,8 +44,12 @@ local vanillaModels = {
 }
 
 local katanaTokens = { 'katana', 'sword', 'ninjato', 'wakizashi', 'longsword' }
-local longTokens = { 'weapon_bat', 'golf', 'poolcue', 'pool_cue', 'sledge', 'staff', 'spear', 'lance', 'battleaxe', 'battle_axe' }
-local smallTokens = { 'knife', 'dagger', 'switch', 'bottle', 'flashlight', 'shiv', 'bayonet', 'karambit', 'butterfly' }
+local longTokens = {
+    'weapon_bat', 'heartbat', 'angelbat', 'devilbat', 'crayonbat', 'bananabat',
+    'pickaxe', 'broom', 'rake', 'golf', 'poolcue', 'pool_cue', 'sledge',
+    'staff', 'spear', 'lance', 'battleaxe', 'battle_axe',
+}
+local smallTokens = { 'fork', 'knife', 'dagger', 'switch', 'bottle', 'flashlight', 'shiv', 'bayonet', 'karambit', 'butterfly' }
 
 local function containsToken(name, tokens)
     for i = 1, #tokens do

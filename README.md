@@ -35,7 +35,24 @@ Use your actual resource folder name in the export.
 
 ## Adding your weapons
 
-Vanilla GTA melee is already configured (bat, machete, knife, …). Custom / addon names go in `config.lua` → `Config.Weapons`.
+Vanilla GTA melee is already configured. These custom melee weapons are included:
+
+| Item | Preset | Back slot preference |
+| --- | --- | --- |
+| `WEAPON_FORTNITEPICKAXE` | long | primary (highest priority) |
+| `WEAPON_HEARTBAT` | long | primary / secondary |
+| `WEAPON_ANGELBAT` | long | primary / secondary |
+| `WEAPON_DEVILBAT` | long | primary / secondary |
+| `WEAPON_CRAYONBAT` | long | primary / secondary |
+| `WEAPON_BANANABAT` | long | primary / secondary |
+| `WEAPON_BROOM` | long | primary / secondary |
+| `WEAPON_RAKE` | long | primary / secondary |
+| `WEAPON_SLURPAXE` | medium | secondary |
+| `WEAPON_FORK` | small | tertiary |
+
+The client resolves each addon model from `weapons.meta` (`GetWeapontypeModel`) and also tries `w_me_<name>`. If a prop does not appear, set `model` in `config.lua` to the exact ydr name from the weapon pack.
+
+Add more names the same way:
 
 ```lua
 ['weapon_katana'] = { model = 'w_me_katana', preset = 'katana' },

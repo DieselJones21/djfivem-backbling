@@ -172,13 +172,20 @@ Config.Weapons = {
     ['weapon_stunrod'] = { model = 'w_me_stunrod_01', preset = 'medium' },
 
     ----------------------------------------------------------------
-    -- ADDON / CUSTOM NAMES
-    -- Paste yours here. If it is a real weapon, model can be omitted.
-    -- If it is only an inventory item (prop), set model to the ydr name.
-    --
-    -- ['weapon_katana'] = { model = 'w_me_katana', preset = 'katana' },
-    -- ['weapon_sledgehammer'] = { model = 'w_me_sledgehammer', preset = 'long' },
+    -- Custom melee (inventory item name = weapon spawn code)
+    -- Models fall back to GetWeapontypeModel + w_me_<name> if the ydr differs.
+    -- Tune any that sit wrong with: /backbling weapon_heartbat
     ----------------------------------------------------------------
+    ['WEAPON_FORTNITEPICKAXE'] = { model = 'w_me_fortnitepickaxe', preset = 'long', priority = 8 },
+    ['WEAPON_HEARTBAT'] = { model = 'w_me_heartbat', preset = 'long', priority = 10 },
+    ['WEAPON_ANGELBAT'] = { model = 'w_me_angelbat', preset = 'long', priority = 10 },
+    ['WEAPON_DEVILBAT'] = { model = 'w_me_devilbat', preset = 'long', priority = 10 },
+    ['WEAPON_CRAYONBAT'] = { model = 'w_me_crayonbat', preset = 'long', priority = 10 },
+    ['WEAPON_BANANABAT'] = { model = 'w_me_bananabat', preset = 'long', priority = 10 },
+    ['WEAPON_BROOM'] = { model = 'w_me_broom', preset = 'long', priority = 11 },
+    ['WEAPON_RAKE'] = { model = 'w_me_rake', preset = 'long', priority = 11 },
+    ['WEAPON_SLURPAXE'] = { model = 'w_me_slurpaxe', preset = 'medium', priority = 16 },
+    ['WEAPON_FORK'] = { model = 'w_me_fork', preset = 'small', priority = 32 },
 }
 
 -- Bones the /backbling editor can cycle through.
